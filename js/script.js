@@ -25,13 +25,11 @@ async function getMeals(url) {
   myArray = respData.meals;
 
   showMeals(respData.meals);
-  console.log(respData);
 
   return respData;
 }
 
 function showMeals(meals) {
-  console.log(meals);
 
   recipeDisplay.innerHTML = "";
 
@@ -116,7 +114,6 @@ function showOverlay(e) {
   e.preventDefault();
   if (e.target.classList.contains("show-overlay")) {
     let mealItem = e.target.parentElement.parentElement;
-    console.log(mealItem.dataset.id);
     fetch(searchByMealIdApi + `${mealItem.dataset.id}`)
       .then((response) => response.json())
       .then((data) => {
@@ -136,7 +133,6 @@ function showOverlay(e) {
 
 function getOverlay(meal) {
   meal = meal[0];
-  console.log(meal.strArea);
   // ingredientsArray = [];
 
   // for (i = 1; i < 21; i++) {
@@ -182,14 +178,12 @@ async function fetchApi() {
   const response = await fetch(baseURL);
   const nutritionData = await response.json();
   generateHTML(nutritionData.hits);
-  console.log(nutritionData.hits);
 }
 
 async function initialDisplay() {
   apiInitial = `https://api.edamam.com/search?q=butter&app_id=${APP_ID}&app_key=${APP_KEY}`;
   const respInit = await fetch(apiInitial);
   const initData = await respInit.json();
-  console.log(initData);
   generateHTML(initData.hits);
 }
 
@@ -237,9 +231,7 @@ const searchIngredient = async (searchTxt1) => {
     "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
   );
   const respData = await res.json();
-  // console.log(respData.meals);
-  // console.log(meals.meals[0].strIngredient)
-
+  
   let matches1 = respData.meals.filter((meal) => {
     const regex1 = new RegExp(`^${searchTxt1}`, "gi");
     return meal.strIngredient.match(regex1);
@@ -272,7 +264,6 @@ matchList.addEventListener('click',put)
 
 function put(e){
   e.preventDefault();
-  console.log(e.target.innerHTML);
   if(e.target.classList.contains("list-item")){
   recipeSearchInput.value = e.target.innerHTML
   matchList.innerHTML = ""
